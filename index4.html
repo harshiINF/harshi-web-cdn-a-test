@@ -1,0 +1,129 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tegar Universe – Supreme Mode™</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/typeit@8.7.1/dist/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <style>
+    body { transition: background 0.3s, color 0.3s; }
+    .dark-mode { background-color: #0f0f0f; color: white; }
+    .glow-text { text-shadow: 0 0 10px #9333ea, 0 0 20px #9333ea; }
+    .hidden-section { display: none; }
+    #tsparticles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+    .chatbot { position: fixed; bottom: 20px; right: 20px; background: white; color: black; border: 2px solid #9333ea; border-radius: 8px; padding: 10px; width: 250px; display: none; z-index: 999; }
+    .chatbot-header { font-weight: bold; margin-bottom: 5px; }
+    .cursor-glow { cursor: url('https://cur.cursors-4u.net/cursors/cur-13/cur1149.cur'), auto; }
+    .cv-btn { border: 2px solid #9333ea; padding: 10px 20px; border-radius: 8px; color: #9333ea; background: white; transition: all 0.3s; }
+    .cv-btn:hover { background: #9333ea; color: white; }
+  </style>
+</head>
+<body id="body" class="cursor-glow font-sans">
+<div id="tsparticles"></div>
+
+<nav class="bg-purple-800 text-white p-4 flex justify-between">
+  <h1 class="text-lg font-bold">Tegar Universe</h1>
+  <div class="space-x-2">
+    <button onclick="toggleDarkMode()" class="bg-white text-purple-800 px-3 py-1 rounded">☀️ / 🌙</button>
+    <button onclick="toggleChatbot()" class="bg-white text-purple-800 px-3 py-1 rounded">🤖</button>
+  </div>
+</nav>
+
+<header class="p-10 text-center" data-aos="fade-up">
+  <h1 class="text-4xl font-bold text-purple-700 glow-text" id="main-type">Welcome to Supreme Mode™</h1>
+  <p class="mt-2">The most powerful version of the Tegar Portfolio.</p>
+  <a href="https://example.com/tegar-cv.pdf" target="_blank" class="cv-btn mt-4 inline-block">Download CV</a>
+</header>
+
+<section class="p-10" data-aos="fade-up">
+  <h2 class="text-2xl font-bold text-purple-600">Projects</h2>
+  <div class="flex flex-wrap gap-4 mt-4">
+    <div class="project-card p-4 border rounded w-60 bg-white dark:bg-gray-800">React App</div>
+    <div class="project-card p-4 border rounded w-60 bg-white dark:bg-gray-800">Firebase Auth</div>
+    <div class="project-card p-4 border rounded w-60 bg-white dark:bg-gray-800">Tailwind Design</div>
+  </div>
+</section>
+
+<section class="p-10" data-aos="fade-up">
+  <h2 class="text-2xl font-bold text-purple-600">Contact</h2>
+  <form onsubmit="showNotification(); return false;" class="space-y-3 mt-4">
+    <input type="text" required placeholder="Your Name" class="w-full p-2 border rounded" />
+    <input type="email" required placeholder="Your Email" class="w-full p-2 border rounded" />
+    <textarea required placeholder="Your Message" class="w-full p-2 border rounded"></textarea>
+    <button type="submit" class="bg-purple-700 text-white px-4 py-2 rounded">Send</button>
+  </form>
+</section>
+
+<footer class="bg-purple-800 text-white text-center p-4 mt-10">
+  © 2025 Tegar Universe – Supreme Mode™
+</footer>
+
+<div class="chatbot" id="chatbot">
+  <div class="chatbot-header">AI Chatbot</div>
+  <div><em>Hi! I'm a fake AI. How can I help?</em></div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+  VanillaTilt.init(document.querySelectorAll(".project-card"), { max: 15, speed: 400 });
+
+  function toggleDarkMode() {
+    document.getElementById("body").classList.toggle("dark-mode");
+    localStorage.setItem("dark", document.getElementById("body").classList.contains("dark-mode"));
+  }
+
+  function toggleChatbot() {
+    const bot = document.getElementById("chatbot");
+    bot.style.display = bot.style.display === "block" ? "none" : "block";
+  }
+
+  function showNotification() {
+    alert("✅ Message sent! Thank you!");
+  }
+
+  window.addEventListener("load", () => {
+    if (localStorage.getItem("dark") === "true") {
+      document.getElementById("body").classList.add("dark-mode");
+    }
+    tsParticles.load("tsparticles", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#9333ea" },
+        shape: { type: "circle" },
+        opacity: { value: 0.4 },
+        size: { value: 3 },
+        move: { enable: true, speed: 1 }
+      },
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" } }
+      }
+    });
+    new TypeIt("#main-type", { speed: 50, waitUntilVisible: true }).go();
+  });
+
+  // Konami Code Easter Egg
+  const konami = [38,38,40,40,37,39,37,39,66,65];
+  let inputBuffer = [];
+  document.addEventListener('keydown', (e) => {
+    inputBuffer.push(e.keyCode);
+    if (inputBuffer.toString().includes(konami.toString())) {
+      alert("🎮 Mini Game: Guess a number between 1-10");
+      const guess = prompt("Enter your guess:");
+      const answer = Math.floor(Math.random() * 10) + 1;
+      alert(guess == answer ? "🎉 Correct!" : "❌ Nope! It was " + answer);
+      inputBuffer = [];
+    }
+  });
+
+  const logs = ["Tegar Universe loading...", "Dark Mode system online...", "Supreme Portfolio initialized."];
+  logs.forEach((msg, i) => setTimeout(() => console.log(msg), 1500 * i));
+</script>
+</body>
+</html>
